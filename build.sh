@@ -38,9 +38,9 @@ if [[ -v DEVICES[$MODEL] ]]; then
     read KERNEL_DEFCONFIG SOC BOARD PHONE <<< "${DEVICES[$MODEL]}"
     echo -e "[!] Building a KernelSU enabled kernel for ${MODEL}...\n"
 else
-    echo "Unknown device: $MODEL, setting to beyondxks"
-    export MODEL="beyondxks"
-    read KERNEL_DEFCONFIG SOC BOARD PHONE <<< "${DEVICES[beyondxks]}"
+    echo "Unknown device: $MODEL, setting to d1"
+    export MODEL="d1"
+    read KERNEL_DEFCONFIG SOC BOARD PHONE <<< "${DEVICES[d1]}"
 fi
 
 #kernelversion
@@ -49,7 +49,7 @@ if [ -z "$BUILD_KERNEL_VERSION" ]; then
 fi
 
 #setting up localversion
-echo -e "CONFIG_LOCALVERSION_AUTO=n\nCONFIG_LOCALVERSION=\"-MencretKernel-${BUILD_KERNEL_VERSION}\"\n" > "${RDIR}/arch/arm64/configs/version.config"
+echo -e "CONFIG_LOCALVERSION_AUTO=n\nCONFIG_LOCALVERSION=\"-SweatKernel-${BUILD_KERNEL_VERSION}\"\n" > "${RDIR}/arch/arm64/configs/version.config"
 
 #OEM variabls
 export ARCH=arm64
@@ -96,7 +96,7 @@ build_boot() {
 #build odin flashable tar
 build_tar(){
     cp "${RDIR}/prebuilt-images/dt_exynos${SOC}.img.lz4" "${RDIR}/build/dt.img.lz4" && cd ${RDIR}/build
-    tar -cvf "MencretKernel-${MODEL}-${BUILD_KERNEL_VERSION}-stock-One-UI.tar" boot.img dt.img.lz4 && rm boot.img dt.img.lz4
+    tar -cvf "SweatKernel-${MODEL}-${BUILD_KERNEL_VERSION}-stock-One-UI.tar" boot.img dt.img.lz4 && rm boot.img dt.img.lz4
     echo -e "\n[i] Build Finished..!\n" && cd ${RDIR}
 }
 
